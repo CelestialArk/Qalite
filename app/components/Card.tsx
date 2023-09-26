@@ -8,7 +8,7 @@ function Card({
   delay,
   title,
 }: {
-  icon: StaticImageData;
+  icon: React.ReactNode;
   text: string;
   delay: number;
   title: string;
@@ -21,10 +21,8 @@ function Card({
       className="w-1/3"
     >
       <div className="border-2 border-gray-400 shadow-xl rounded-xl p-8 ">
-        <Image className="w-12 h-12 text-black" src={icon} alt="icon" />
-        <div className="mt-4 text-black font-semibold flex justify-start">
-          {title}
-        </div>
+        {icon}
+        <div className="mt-4  font-semibold flex justify-start ">{title}</div>
         <div className="">{text}</div>
       </div>
     </motion.div>

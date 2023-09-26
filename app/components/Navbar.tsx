@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ModeToggle } from "./ModeToggle";
 
 function Navbar() {
   const [scroll, setScroll] = useState<boolean>(false);
@@ -22,8 +23,8 @@ function Navbar() {
   return (
     <nav
       className={`p-4 z-20 flex items-center gap-2 fixed ${
-        scroll ? "bg-white" : "bg-transparent"
-      } text-black w-full`}
+        scroll ? "bg-white dark:bg-black" : "bg-transparent"
+      }  w-full`}
     >
       <motion.svg
         transition={{ duration: 1, delay: 0.4 }}
@@ -34,6 +35,7 @@ function Navbar() {
         xmlns="http://www.w3.org/2000/svg"
       >
         <motion.path
+          className="dark:stroke-white"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1, strokeWidth: 6.43629 }}
           transition={{ duration: 1, delay: 0.4 }}
@@ -54,6 +56,7 @@ function Navbar() {
           stroke-linejoin="round"
         />
         <motion.path
+          className="dark:stroke-white"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1, strokeWidth: 6.43629 }}
           transition={{ duration: 1, delay: 0.4 }}
@@ -65,15 +68,16 @@ function Navbar() {
         />
       </motion.svg>
 
-      <div className="text-xl font-bold text-black">Qalite</div>
+      <div className="text-xl font-bold ">Qalite</div>
       <div className="flex-1">
-        <ul className="flex justify-end items-center gap-8 font-semibold text-lg">
+        <ul className="flex justify-end items-center gap-8 font-semibold text-lg dark:text-white">
           <Link href="/">About</Link>
           <Link href="/">Cars</Link>
           <Link href="/">Help</Link>
+
           <Link
             href="/"
-            className="py-2 px-4 flex justify-center items-center gap-4 bg-black hover:bg-gray-700 text-white rounded-full"
+            className="py-2 px-4 flex justify-center items-center gap-4 dark:bg-white bg-black hover:bg-gray-700 dark:text-black text-white rounded-full"
           >
             <svg
               width="24"
@@ -83,6 +87,7 @@ function Navbar() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <motion.path
+                className="dark:stroke-black"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1, strokeWidth: 6.43629 }}
                 transition={{ duration: 1, delay: 0.4 }}
@@ -93,6 +98,7 @@ function Navbar() {
                 stroke-linejoin="round"
               />
               <motion.path
+                className="dark:stroke-black"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1, strokeWidth: 6.43629 }}
                 transition={{ duration: 1, delay: 0.4 }}
@@ -103,6 +109,7 @@ function Navbar() {
                 stroke-linejoin="round"
               />
               <motion.path
+                className="dark:stroke-black"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1, strokeWidth: 6.43629 }}
                 transition={{ duration: 1, delay: 0.4 }}
@@ -115,6 +122,7 @@ function Navbar() {
             </svg>
             Get Started
           </Link>
+          <ModeToggle />
         </ul>
       </div>
     </nav>

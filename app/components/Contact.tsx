@@ -8,17 +8,17 @@ function Contact() {
         <div className="font-semibold text-lg text-gray-400">
           Start Now with Qalite
         </div>
-        <div className="text-black font-bold text-5xl mb-4">Register</div>
+        <div className=" font-bold text-5xl mb-4">Register</div>
       </div>
       <div className="w-full h-[0.5px] bg-gray-400" />
-      <main className="w-full h-full flex flex-col gap-6 items-center justify-center rounded-3xl">
+      <main className="w-full h-full bg-hero-pattern flex flex-col gap-6 items-center justify-center rounded-3xl">
         <div className="text-5xl text-white font-bold">Join Now!</div>
         <div className="text-xl text-gray-400 font-semibold text-center">
           Create an account and start renting our Premium Cars
         </div>
         <Link
           href="/"
-          className="bg-white text-black p-4 rounded-full flex items-center gap-3 hover:bg-gray-300 font-semibold "
+          className="bg-white dark:text-black p-4 rounded-full flex items-center gap-3 hover:bg-gray-300 font-semibold "
         >
           <svg
             width="24"

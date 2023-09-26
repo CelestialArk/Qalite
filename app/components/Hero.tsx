@@ -20,7 +20,7 @@ function Hero() {
           initial={{ opacity: 0, y: 80 }}
           transition={{ delay: 0.5, duration: 0.7 }}
           whileInView={{ y: 0, opacity: 1 }}
-          className="p-6 w-1/2 text-black font-bold text-6xl flex-col justify-center items-start"
+          className="p-6 w-1/2 font-bold text-6xl flex-col justify-center items-start"
         >
           Premium Car Rentals In{" "}
           <Typewriter
@@ -38,8 +38,8 @@ function Hero() {
               loop: true,
             }}
           />
-          <p className="text-black text-xl font-regular">
-            Don't deny yourself
+          <p className=" text-xl font-regular">
+            Don&apos;t deny yourself
             <br /> the pleasure of driving
             <br /> the best cars now!
           </p>
@@ -56,7 +56,7 @@ function Hero() {
           <Image src={Car} alt="Car" />
         </motion.div>
       </div>
-      <div className="flex flex-wrap gap-20 justify-center ">
+      <div className="flex flex-wrap gap-20 justify-center">
         <Logo image={Chavrolet} delay={0} />
         <Logo image={Mercedes} delay={0.2} />
         <Logo image={BMW} delay={0.4} />
