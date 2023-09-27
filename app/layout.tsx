@@ -2,6 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "./components/Providers/ThemeProvider";
+import { Suspense } from "react";
+import Loading from "./Loading";
+import { Toaster } from "@/components/ui/toaster";
+import LoggedContextProvider from "./context/LoggedContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light">
-          {children}
+          <Suspense fallback={<Loading />}>
+            <Toaster />
+            <LoggedContextProvider>{children}</LoggedContextProvider>
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

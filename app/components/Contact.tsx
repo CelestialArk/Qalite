@@ -17,7 +17,7 @@ function Contact() {
           Create an account and start renting our Premium Cars
         </div>
         <Link
-          href="/"
+          href="/signup"
           className="bg-white dark:text-black p-4 rounded-full flex items-center gap-3 hover:bg-gray-300 font-semibold "
         >
           <svg

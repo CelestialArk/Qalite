@@ -76,7 +76,7 @@ function Navbar() {
           <Link href="/">Help</Link>
 
           <Link
-            href="/"
+            href="/signup"
             className="py-2 px-4 flex justify-center items-center gap-4 dark:bg-white bg-black hover:bg-gray-700 dark:text-black text-white rounded-full"
           >
             <svg
