@@ -7,10 +7,10 @@ import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 
 export default function Home() {
-  const heroRef = useRef(null);
-  const aboutRef = useRef(null);
-  const featuresRef = useRef(null);
-  const contactRef = useRef(null);
+  const heroRef = useRef<null | HTMLDivElement>(null);
+  const aboutRef = useRef<null | HTMLDivElement>(null);
+  const featuresRef = useRef<null | HTMLDivElement>(null);
+  const contactRef = useRef<null | HTMLDivElement>(null);
   const scrollToAbout = () => {
     if (!aboutRef.current) return;
     aboutRef.current.scrollIntoView({ behavior: "smooth" });
