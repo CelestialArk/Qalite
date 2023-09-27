@@ -5,7 +5,10 @@ function Loading() {
   return (
     <div className="h-screen bg-white flex justify-center items-center dark:bg-white">
       <div className="flex justify-center items-center bg-white rounded-xl animate-pulse shadow-xl p-10">
-        <svg
+        <motion.svg
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           width="94"
           height="94"
           viewBox="0 0 94 94"
@@ -35,7 +38,7 @@ function Loading() {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
+        </motion.svg>
       </div>
     </div>
   );

@@ -5,7 +5,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 
-function Navbar() {
+function Navbar({
+  scrollToAbout,
+  scrollToFeatures,
+  scrollToContact,
+  scrollToHero,
+}: any) {
   const [scroll, setScroll] = useState<boolean>(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +32,8 @@ function Navbar() {
       }  w-full`}
     >
       <motion.svg
+        className="cursor-pointer"
+        onClick={scrollToHero}
         transition={{ duration: 1, delay: 0.4 }}
         width="25"
         height="25"
@@ -71,9 +78,15 @@ function Navbar() {
       <div className="text-xl font-bold ">Qalite</div>
       <div className="flex-1">
         <ul className="flex justify-end items-center gap-8 font-semibold text-lg dark:text-white">
-          <Link href="/">About</Link>
-          <Link href="/">Cars</Link>
-          <Link href="/">Help</Link>
+          <div className="cursor-pointer" onClick={scrollToAbout}>
+            About
+          </div>
+          <div className="cursor-pointer" onClick={scrollToContact}>
+            Contact
+          </div>
+          <div className="cursor-pointer" onClick={scrollToFeatures}>
+            Features
+          </div>
 
           <Link
             href="/signup"
