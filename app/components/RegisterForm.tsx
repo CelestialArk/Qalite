@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 import axios, { isAxiosError } from "axios";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -12,28 +12,45 @@ import { loggedContext } from "../context/LoggedContext";
 import { useRouter } from "next/navigation";
 
 function RegisterForm() {
-  const [firstname, setFirstname] = useState<string>();
-  const [lastname, setLastname] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [passowrd, setPassword] = useState<string>();
-  const [verify, setVerify] = useState<string>();
-  const { toast } = useToast();
+  const [firstname, setFirstname] = useState<string>("");
+  const [lastname, setLastname] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [verify, setVerify] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const logged = useContext(loggedContext);
 
   useEffect(() => {
-    if (logged) {
+    if (logged?.user) {
+      router.push("/dashboard");
+
       toast({
         variant: "default",
         title: "Logged in!",
         description: "redirecting",
       });
-      router.push("/dashboard");
     }
-  }, []);
+  }, [logged]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      setLoading(true);
+      handleSignUp();
+    }
+  };
 
   const handleSignUp = async () => {
     try {
+      if (password !== verify) {
+        setLoading(false);
+
+        return toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong.",
+          description: "passwords do not match.",
+        });
+      }
       const response = await axios({
         method: "post",
         url: "/api/auth/signup",
@@ -41,17 +58,21 @@ function RegisterForm() {
           firstname: firstname,
           lastname: lastname,
           email: email,
-          password: passowrd,
+          password: password,
         },
       });
+      setLoading(false);
+      logged?.refetchToken();
+
       toast({
         variant: "default",
         title: "Success!",
         description: response.data,
       });
-      router.push("/dashboard");
+      router.push("/loading");
     } catch (err) {
       if (isAxiosError(err)) {
+        setLoading(false);
         toast({
           variant: "destructive",
           title: "Oops! Something went wrong.",
@@ -90,9 +111,9 @@ function RegisterForm() {
           transition={{ duration: 1, delay: 0.4 }}
           d="M82.0132 19.8976C88.7069 15.0919 91.9251 17.5377 89.1789 25.3041L71.8438 73.8337C71.2431 75.5501 69.2264 76.9661 67.4242 76.9661H27.0902C25.2881 76.9661 23.2713 75.5501 22.6706 73.8337L4.90646 24.1027C2.37485 16.9799 5.33555 14.7915 11.4286 19.1682L28.1629 31.1397C30.952 33.0706 34.1272 32.0837 35.3287 28.9514L42.8805 8.82722C45.2834 2.39093 49.2739 2.39093 51.6768 8.82722L59.2287 28.9514C60.4301 32.0837 63.6054 33.0706 66.3515 31.1397L69.0548 29.2088"
           stroke="black"
-          stroke-width="6.43629"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="6.43629"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <motion.path
           initial={{ pathLength: 0 }}
@@ -100,9 +121,9 @@ function RegisterForm() {
           transition={{ duration: 1, delay: 0.4 }}
           d="M23.6609 89.8811H70.8603"
           stroke="yellow"
-          stroke-width="6.43629"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="6.43629"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <motion.path
           className="dark:stroke-white"
@@ -111,9 +132,9 @@ function RegisterForm() {
           transition={{ duration: 1, delay: 0.4 }}
           d="M36.5335 55.5542H57.9878"
           stroke="black"
-          stroke-width="6.43629"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="6.43629"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </motion.svg>
 
@@ -162,7 +183,7 @@ function RegisterForm() {
         <div className="my-2">
           <Label htmlFor="Password">Password</Label>
           <Input
-            value={passowrd}
+            value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -174,6 +195,9 @@ function RegisterForm() {
         <div className="my-2">
           <Label htmlFor="VerifyPassword">Verify</Label>
           <Input
+            onKeyDown={(e) => {
+              handleKeyDown(e);
+            }}
             value={verify}
             onChange={(e) => {
               setVerify(e.target.value);
@@ -185,11 +209,28 @@ function RegisterForm() {
         </div>
       </div>
       <Button
-        className="mt-4"
+        className="mt-4 flex justify-center gap-3"
         onClick={() => {
+          setLoading(true);
           handleSignUp();
         }}
       >
+        <svg
+          className={`animate-spin ${loading ? null : "hidden"}`}
+          width="15"
+          height="15"
+          viewBox="0 0 22 22"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.01 18.99C15.34 20.25 13.25 21 11 21C5.48 21 2.11 15.44 2.11 15.44M2.11 15.44H6.63M2.11 15.44V20.44M21 11C21 12.82 20.51 14.53 19.66 16M5.03 2.97C6.69 1.73 8.75 1 11 1C17.67 1 21 6.56 21 6.56M21 6.56V1.56M21 6.56H16.56M1 11C1 9.18 1.48 7.47 2.33 6"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
         Register
       </Button>
       <div>

@@ -17,7 +17,7 @@ export async function GET() {
   if (secret) {
     const user = jwt.verify(token.value, secret);
     return NextResponse.json({
-      user,
+      data: user,
     });
   } else {
     return new NextResponse("Access Denied", { status: 400 });

@@ -13,20 +13,28 @@ import Link from "next/link";
 function LoginForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-
   const logged = useContext(loggedContext);
 
   useEffect(() => {
-    if (logged) {
+    if (logged?.user) {
+      router.push("/dashboard");
+
       toast({
         variant: "default",
         title: "Logged in!",
         description: "redirecting",
       });
-      router.push("/dashboard");
     }
-  }, []);
+  }, [logged]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      setLoading(true);
+      handleLogin();
+    }
+  };
 
   const handleLogin = async () => {
     try {
@@ -38,14 +46,17 @@ function LoginForm() {
           password: password,
         },
       });
+
+      setLoading(false);
       toast({
         variant: "default",
         title: "Success!",
         description: response.data,
       });
-      router.push("/dashboard");
+      router.push("/loading");
     } catch (err) {
       if (isAxiosError(err)) {
+        setLoading(false);
         toast({
           variant: "destructive",
           title: "Oops! Something went wrong",
@@ -129,6 +140,9 @@ function LoginForm() {
       <div className="mt-2">
         <Label htmlFor="Password">Password</Label>
         <Input
+          onKeyDown={(e) => {
+            handleKeyDown(e);
+          }}
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -139,15 +153,32 @@ function LoginForm() {
         />
       </div>
       <Button
-        className="mt-2"
+        className="mt-2 flex justify-center gap-2"
         onClick={() => {
+          setLoading(true);
           handleLogin();
         }}
       >
+        <svg
+          className={`animate-spin ${loading ? null : "hidden"}`}
+          width="15"
+          height="15"
+          viewBox="0 0 22 22"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.01 18.99C15.34 20.25 13.25 21 11 21C5.48 21 2.11 15.44 2.11 15.44M2.11 15.44H6.63M2.11 15.44V20.44M21 11C21 12.82 20.51 14.53 19.66 16M5.03 2.97C6.69 1.73 8.75 1 11 1C17.67 1 21 6.56 21 6.56M21 6.56V1.56M21 6.56H16.56M1 11C1 9.18 1.48 7.47 2.33 6"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
         Login
       </Button>
       <div>
-        Don't have an account yet ?{" "}
+        Don&apos;t have an account yet ?{" "}
         <Link
           href="/signup"
           className="font-semibold hover:text-tertiary hover:underline"
