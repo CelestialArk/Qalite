@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/prisma/prismaClient";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -35,11 +36,10 @@ export async function POST(request: NextRequest) {
     const secret = process.env.SECRET;
     if (secret) {
       const token = jwt.sign(user, secret);
-      const response = new NextResponse();
 
-      response.cookies.set("Qalite_Access_Token", token);
+      cookies().set("Qalite_Access_Token", token);
 
-      return response;
+      return new NextResponse("Registered Successfully", { status: 200 });
     } else {
       return new NextResponse("Couldnt create the token.", { status: 400 });
     }

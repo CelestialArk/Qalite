@@ -14,20 +14,21 @@ type User = {
   iat: number;
 };
 
-export const loggedContext = createContext<User | undefined>(undefined);
+export const loggedContext = createContext<User | null>(null);
 
 export default function LoggedContextProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [user, setUser] = useState<User | undefined>();
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const handleCheck = async () => {
       try {
         const response = await axios({
           method: "get",
           url: "/api/auth/check",
+          withCredentials: true,
         });
 
         setUser(response.data);

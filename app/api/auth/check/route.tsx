@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
-export async function GET(request: NextRequest) {
-  const token = request.cookies.get("Qalite_Access_Token");
+export async function GET() {
+  const token = cookies().get("Qalite_Access_Token");
 
   if (!token) {
     return new NextResponse(
