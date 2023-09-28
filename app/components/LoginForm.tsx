@@ -26,7 +26,7 @@ function LoginForm() {
       });
       router.push("/dashboard");
     }
-  }, [logged]);
+  }, []);
 
   const handleLogin = async () => {
     try {

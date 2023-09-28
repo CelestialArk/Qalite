@@ -30,7 +30,7 @@ function RegisterForm() {
       });
       router.push("/dashboard");
     }
-  }, [logged]);
+  }, []);
 
   const handleSignUp = async () => {
     try {
