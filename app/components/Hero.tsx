@@ -11,6 +11,7 @@ import BMW from "./assets/icons/BMW.png";
 import Lamborghini from "./assets/icons/Lamborghini.png";
 import Logo from "./Logo";
 import Typewriter from "typewriter-effect";
+import LogoCarousel from "./LogoCarousel";
 
 function Hero() {
   return (
@@ -56,13 +57,8 @@ function Hero() {
           <Image src={Car} alt="Car" />
         </motion.div>
       </div>
-      <div className="flex flex-wrap gap-20 justify-center">
-        <Logo image={Chavrolet} delay={0} />
-        <Logo image={Mercedes} delay={0.2} />
-        <Logo image={BMW} delay={0.4} />
-        <Logo image={Tesla} delay={0.6} />
-        <Logo image={Ferrari} delay={0.8} />
-        <Logo image={Lamborghini} delay={1} />
+      <div className="flex justify-center">
+        <LogoCarousel />
       </div>
     </FadeOut>
   );

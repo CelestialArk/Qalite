@@ -20,7 +20,6 @@ function LoginForm() {
   useEffect(() => {
     if (logged?.user) {
       router.push("/dashboard");
-
       toast({
         variant: "default",
         title: "Logged in!",
@@ -53,6 +52,7 @@ function LoginForm() {
         title: "Success!",
         description: response.data,
       });
+      logged?.refetchToken();
       router.push("/loading");
     } catch (err) {
       if (isAxiosError(err)) {

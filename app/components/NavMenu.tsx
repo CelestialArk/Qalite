@@ -13,18 +13,13 @@ function NavMenu() {
   const router = useRouter();
   const logged = useContext(loggedContext);
   useEffect(() => {
-    if (logged?.user?.data.admin) {
+    /*if (logged?.user?.data.admin) {
       router.push("/");
-    }
+    }*/
     if (!logged?.user) {
-      router.push("/");
-      toast({
-        variant: "destructive",
-        title: "Access Denied",
-        description: "User Logged out.",
-      });
+      router.push("/loading");
     }
-  }, [logged]);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -50,15 +45,15 @@ function NavMenu() {
   return (
     <div className="top-0 fixed w-full p-4 shdaow-lg flex justify-start items-center gap-4">
       <motion.svg
-        className="cursor-pointer rounded-sm shadow-xl"
+        className="cursor-pointer "
         onClick={() => {
           router.push("/dashboard");
         }}
         initial={{ x: -40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.4 }}
-        width="25"
-        height="25"
+        width="50"
+        height="50"
         viewBox="0 0 94 94"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -97,29 +92,28 @@ function NavMenu() {
         />
       </motion.svg>
       <motion.div
-        className="text-xl font-semibold"
+        className="text-xl font-semibold w-full"
         initial={{ x: -40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.4, delayChildren: 0.5 }}
       >
         Welcome, {logged?.user?.data.firstname}
       </motion.div>
-      <div className="">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+      <motion.div
+        className="w-full flex justify-end"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+      >
+        <Button
+          variant={"destructive"}
+          onClick={() => {
+            handleLogout();
+          }}
         >
-          <Button
-            variant={"destructive"}
-            onClick={() => {
-              handleLogout();
-            }}
-          >
-            Logout
-          </Button>
-        </motion.div>
-      </div>
+          Logout
+        </Button>
+      </motion.div>
     </div>
   );
 }

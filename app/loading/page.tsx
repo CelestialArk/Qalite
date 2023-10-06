@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useContext, useEffect } from "react";
 import { loggedContext } from "../context/LoggedContext";
 import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
 
 function Loading() {
   const logged = useContext(loggedContext);
@@ -14,6 +15,13 @@ function Loading() {
 
     if (logged?.user) {
       router.push("/dashboard");
+    } else {
+      router.push("/");
+      toast({
+        variant: "destructive",
+        title: "Access Denied",
+        description: "User Logged out.",
+      });
     }
   });
 

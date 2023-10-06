@@ -12,6 +12,7 @@ function page() {
       </div>
     </div>
   );
+  2;
 }
 
 export default page;

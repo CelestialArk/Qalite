@@ -19,7 +19,7 @@ model User {
 
 model Car {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  image         String
+  image         String?
   type          Type    @relation(fields: [typeId], references: [id])
   typeId        String  @db.ObjectId
   license_plate String  @unique
@@ -32,4 +32,6 @@ model Type {
   model     String
   num_model String
   cars      Car[]
+
+  @@unique([model, num_model])
 }
