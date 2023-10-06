@@ -1,8 +1,5 @@
 import prisma from "@/prisma/prismaClient";
-import {
-  PrismaClientUnknownRequestError,
-  PrismaClientValidationError,
-} from "@prisma/client/runtime/library";
+import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

@@ -14,7 +14,11 @@ function Loading() {
     logged?.refetchToken();
 
     if (logged?.user) {
-      router.push("/dashboard");
+      if (logged.user.data.admin) {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } else {
       router.push("/");
       toast({

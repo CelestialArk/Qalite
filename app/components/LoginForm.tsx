@@ -19,7 +19,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (logged?.user) {
-      router.push("/dashboard");
+      router.push("/loading");
       toast({
         variant: "default",
         title: "Logged in!",
