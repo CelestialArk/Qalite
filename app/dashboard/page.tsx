@@ -1,13 +1,11 @@
 import NavMenu from "../components/NavMenu";
+import Options from "../components/Options";
 
 function page() {
   return (
-    <div className="h-screen w-full flex flex-row ">
+    <div className="h-screen w-full flex flex-row gap-6 ">
       <NavMenu />
-      <div className="flex flex-col lg:flex-row justify-center items-center p-4 w-full">
-        <p className="text-7xl font-bold"></p>
-        <p className="text-7xl font-bold"></p>
-      </div>
+      <Options />
     </div>
   );
 }

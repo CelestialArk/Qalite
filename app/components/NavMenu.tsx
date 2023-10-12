@@ -8,14 +8,13 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { isAxiosError } from "axios";
 import { toast } from "@/components/ui/use-toast";
+import Logout from "./assets/svg/Logout.svg";
+import { ModeToggle } from "./ModeToggle";
 
 function NavMenu() {
   const router = useRouter();
   const logged = useContext(loggedContext);
   useEffect(() => {
-    /*if (logged?.user?.data.admin) {
-      router.push("/");
-    }*/
     if (!logged?.user) {
       router.push("/loading");
     }
@@ -100,17 +99,36 @@ function NavMenu() {
         Welcome, {logged?.user?.data.firstname}
       </motion.div>
       <motion.div
-        className="w-full flex justify-end"
+        className="w-full flex justify-end gap-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
       >
+        <ModeToggle />
+
         <Button
           variant={"destructive"}
           onClick={() => {
             handleLogout();
           }}
+          className="flex gap-2 rounded-full hover:animate-pulse"
         >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 97 111"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M25.6803 55.7329C25.6803 53.4638 27.5621 51.582 29.8312 51.582H60.1607V4.75971C60.1053 2.10313 58.0022 0 55.3456 0C22.747 0 0 22.747 0 55.3455C0 87.944 22.747 110.691 55.3456 110.691C57.9469 110.691 60.1053 108.588 60.1053 105.931V59.8285H29.8312C27.5067 59.8838 25.6803 58.0021 25.6803 55.7329Z"
+              fill="white"
+            />
+            <path
+              d="M95.7661 52.8007L80.0479 37.027C78.4429 35.422 75.7863 35.422 74.1813 37.027C72.5763 38.632 72.5763 41.2886 74.1813 42.8936L82.8152 51.5278H60.1236V59.8296H82.7599L74.126 68.4635C72.5209 70.0685 72.5209 72.7251 74.126 74.3301C74.9561 75.1603 76.0077 75.5477 77.0593 75.5477C78.1108 75.5477 79.1624 75.1603 79.9926 74.3301L95.7107 58.5566C97.3711 57.007 97.3711 54.4057 95.7661 52.8007Z"
+              fill="white"
+            />
+          </svg>
           Logout
         </Button>
       </motion.div>
